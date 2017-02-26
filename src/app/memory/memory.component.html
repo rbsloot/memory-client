@@ -1,38 +1,19 @@
-<md-grid-list rowHeight="25rem" cols="6" rows="2">
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-      <md-card>Test</md-card>
-  </md-grid-tile>
-</md-grid-list>
+<div *ngIf="!game" class="loader"></div>
+<div *ngIf="game" class="row memory-container">
+    <div class="col-md-3">
+        <md-list>
+            <h3 md-subheader>Players</h3>
+            <md-list-item *ngFor="let player of game.players">
+                <md-icon md-list-avatar>person</md-icon>
+                <h4 md-line>{{player.username}}</h4>
+            </md-list-item>
+        </md-list>
+    </div>
+    <div class="col-md-9">
+        <md-grid-list rowHeight="20rem" cols="4">
+            <md-grid-tile *ngFor="let card of game.cards">
+                <md-card>{{card.imageSrc}}</md-card>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+</div>

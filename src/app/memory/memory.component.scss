@@ -1,0 +1,47 @@
+.memory-container {
+    margin-top: 1rem;
+}
+
+md-list-item {
+    md-icon[md-list-avatar] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #eaeaea;
+        color: #555;
+    }
+}
+
+md-card {
+    width: 11rem;
+    height: 16rem;
+}
+
+@media(max-width: 1280px) {
+    md-card {
+        width: 10rem;
+        height: 14rem;
+    }
+}
+
+@media(max-width: 1024px) {
+    md-card {
+        width: 8rem;
+        height: 12rem;
+    }
+}
+
+@media(max-width: 768px) {
+    md-card {
+        width: 6rem;
+        height: 9rem;
+    }
+}
+
+@media(max-width: 644px) {
+    md-card {
+        width: 3rem;
+        height: 5rem;
+    }
+}
