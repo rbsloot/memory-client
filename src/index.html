@@ -7,8 +7,68 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: sans-serif, Arial, Helvetica;
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            background-color: #abc5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loading-screen > .message {
+            position: relative;
+            padding: 2rem 4rem;
+            background-color: white;
+            box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, .5);
+        }
+
+        #loading-screen > .message:before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            content: '';
+            background-color: #333;
+            opacity: .3;
+
+            animation: 2s loading infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            100% {
+                width: 0%;
+                margin-left: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <app-root>Loading...</app-root>
+    <app-root>
+        <div id="loading-screen">
+            <h2 class="message">
+                Loading app, please hold your horses...
+            <h2>
+        </div>
+    </app-root>
 </body>
 </html>
