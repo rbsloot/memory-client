@@ -31,5 +31,11 @@ export class MemoryComponent implements OnInit {
 
         this.game = new Game(players, cards);
         console.log(this.game);
+
+        // const socket = io('http://localhost:3000');
+        // socket.on('connect', () => {
+        //     console.log('client connected');
+        // });
+        // console.log(socket);
     }
 }
