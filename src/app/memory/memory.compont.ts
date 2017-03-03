@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MemorySocketService } from '../services/memory/memory-socket.service';
+
 import { Card } from '../game/memory-card.model';
-import { Player } from '../user/memory-player.model';
+import { Player } from '../game/memory-player.model';
 import { Game } from '../game/memory-game.model';
 
 @Component({
@@ -13,7 +15,7 @@ export class MemoryComponent implements OnInit {
 
     game: Game;
 
-    constructor() { }
+    constructor(private memorySocketService: MemorySocketService) { }
 
     ngOnInit() {
         const cards = [
@@ -30,12 +32,13 @@ export class MemoryComponent implements OnInit {
         ];
 
         this.game = new Game(players, cards);
-        console.log(this.game);
+    }
 
-        // const socket = io('http://localhost:3000');
-        // socket.on('connect', () => {
-        //     console.log('client connected');
-        // });
-        // console.log(socket);
+    createGame() {
+        this.memorySocketService.newGame({ theme: 'meme' });
+    }
+
+    joinGame(gameId: string) {
+        this.memorySocketService.joinGame(gameId);
     }
 }

@@ -1,4 +1,8 @@
 <div *ngIf="!game" class="loader"></div>
+<div class="test-buttons">
+    <button md-raised-button (click)="createGame()">Create game</button>
+    <button md-raised-button (click)="joinGame('1')">Join room 1</button>
+</div>
 <div *ngIf="game" class="row memory-container">
     <div class="col-md-3">
         <md-list>

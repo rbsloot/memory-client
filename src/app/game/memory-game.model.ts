@@ -1,4 +1,4 @@
-import { Player } from '../user/memory-player.model';
+import { Player } from './memory-player.model';
 import { Card } from './memory-card.model';
 
 // For future improvements, remove players as contructor input and make it a room (socket room)

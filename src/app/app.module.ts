@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule, MdToolbarModule } from '@angular/material';
 
+import { CoreModule } from './core/module';
+import { SocketModule } from './services/base/socket/module';
+import { MemorySocketModule } from './services/memory/module';
+
+import { MemoryModule } from './memory/module';
+
 import { AppRoutes } from './app.routes';
 
 import { AppComponent } from './app.component';
@@ -15,7 +21,13 @@ import { AppComponent } from './app.component';
         BrowserModule,
         RouterModule.forRoot(AppRoutes),
         MaterialModule.forRoot(),
-        MdToolbarModule
+        MdToolbarModule,
+
+        CoreModule.forRoot(),
+        SocketModule.forRoot(),
+        MemorySocketModule.forRoot(),
+
+        MemoryModule
     ],
     bootstrap: [AppComponent]
 })

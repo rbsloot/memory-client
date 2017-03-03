@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdListModule, MdIconModule, MdGridListModule, MdCardModule } from '@angular/material';
+import { MdListModule, MdIconModule, MdGridListModule, MdCardModule, MdButtonModule } from '@angular/material';
 
 import { MemoryComponent } from './memory.compont';
 
@@ -10,7 +10,8 @@ import { MemoryComponent } from './memory.compont';
         MdListModule,
         MdIconModule,
         MdGridListModule,
-        MdCardModule
+        MdCardModule,
+        MdButtonModule
     ],
     declarations: [MemoryComponent]
 })
