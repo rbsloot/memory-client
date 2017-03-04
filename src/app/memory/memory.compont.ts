@@ -32,6 +32,8 @@ export class MemoryComponent implements OnInit {
         ];
 
         this.game = new Game(players, cards);
+
+        this.memorySocketService.memoryNamespace.observe('created').subscribe(res => console.log('CREATED', res));
     }
 
     createGame() {

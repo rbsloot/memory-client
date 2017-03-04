@@ -15,19 +15,19 @@ export class SocketNamespace {
         }
         return this.socket.connected
             ? Observable.of(this.socket)
-            : this.observeUsingSocket('connect', this.socket).first();
+            : this.observeUsingSocket('connect', this.socket).map(() => this.socket);
     }
 
     observe<T>(event: string) {
         return new Observable<T>(observer => {
             this.connect()
-                .subscribe(socket => socket.on(event, observer.next));
+                .subscribe(socket => socket.on(event, observer.next.bind(observer)));
         });
     }
 
     observeUsingSocket<T>(event: string, socket: SocketIOClient.Socket) {
         return new Observable<T>(observer => {
-            socket.on(event, observer.next);
+            socket.on(event, observer.next.bind(observer));
         });
     }
 

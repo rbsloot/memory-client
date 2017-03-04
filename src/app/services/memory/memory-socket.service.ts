@@ -5,12 +5,13 @@ import { SocketNamespace } from '../base/socket/socket-namespace.model';
 
 @Injectable()
 export class MemorySocketService {
-    private _memoryNamespace: SocketNamespace;
-    private get memoryNamespace(): SocketNamespace {
+
+    get memoryNamespace(): SocketNamespace {
         return this._memoryNamespace
             ? this._memoryNamespace
             : this.baseSocketService.getSocketNamespace('memory');
     }
+    private _memoryNamespace: SocketNamespace;
 
     constructor(private baseSocketService: BaseSocketService) { }
 

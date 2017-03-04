@@ -8,7 +8,7 @@ interface SocketConfig {
 @Injectable()
 export class HttpConfig {
 
-    socket: SocketConfig = this.initSocketConfig('http://localhost:3000');
+    socket: SocketConfig = this.initSocketConfig('http://localhost:3000/');
 
     private initSocketConfig(root: string) {
         return {
