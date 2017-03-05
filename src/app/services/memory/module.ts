@@ -1,13 +1,14 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { MemorySocketService } from './memory-socket.service';
+import { MemoryGameService } from './memory-game.service';
 
 @NgModule({})
-export class MemorySocketModule {
+export class MemoryModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: MemorySocketModule,
-            providers: [MemorySocketService]
+            ngModule: MemoryModule,
+            providers: [MemorySocketService, MemoryGameService]
         };
     }
 }

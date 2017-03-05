@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const AppRoutes: Routes = [
     { path: '', loadChildren: './home/module#HomeModule' },
-    { path: 'memory', loadChildren: './memory/module#MemoryModule' }
+    { path: 'memory/:gameId', loadChildren: './memory/module#MemoryModule' }
 ];
 
 @NgModule({

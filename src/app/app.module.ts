@@ -4,7 +4,7 @@ import { MaterialModule, MdToolbarModule } from '@angular/material';
 
 import { CoreModule } from './core/module';
 import { SocketModule } from './services/base/socket/module';
-import { MemorySocketModule } from './services/memory/module';
+import { MemoryModule } from './services/memory/module';
 
 import { AppRoutingModule } from './app.routes';
 
@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 
         CoreModule.forRoot(),
         SocketModule.forRoot(),
-        MemorySocketModule.forRoot()
+        MemoryModule.forRoot()
     ],
     bootstrap: [AppComponent]
 })

@@ -1,46 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
-import { MemorySocketService } from '../services/memory/memory-socket.service';
+import { MemoryGameService } from '../services/memory/memory-game.service';
 
-import { Card } from '../game/memory-card.model';
-import { Player } from '../game/memory-player.model';
-import { Game } from '../game/memory-game.model';
+import { Game } from '../services/memory/game/memory-game.model';
 
 @Component({
     selector: 'memory-game',
     templateUrl: './memory.component.html',
     styleUrls: ['./memory.component.scss']
 })
-export class MemoryComponent implements OnInit {
+export class MemoryComponent implements OnInit, OnDestroy {
 
     game: Game;
 
-    constructor(private memorySocketService: MemorySocketService) { }
+    private routeSubscription: Subscription;
+
+    constructor(
+        private route: ActivatedRoute,
+        private memoryGameService: MemoryGameService) { }
 
     ngOnInit() {
-        const cards = [
-            new Card('test'),
-            new Card('test'),
-            new Card('test'),
-            new Card('test'),
-            new Card('test'),
-            new Card('test')
-        ];
-        const players = [
-            new Player('Henk'),
-            new Player('Jan-Willem')
-        ];
-
-        this.game = new Game(players, cards);
-
-        this.memorySocketService.memoryNamespace.observe('created').subscribe(res => console.log('CREATED', res));
+        this.routeSubscription = this.route.params.subscribe((params: { gameId: string }) => {
+            const gameId: string = params.gameId;
+            this.memoryGameService.initialize(gameId)
+                .first()
+                .subscribe(game => this.game = game);
+        });
     }
 
-    createGame() {
-        this.memorySocketService.newGame({ theme: 'meme' });
-    }
-
-    joinGame(gameId: string) {
-        this.memorySocketService.joinGame(gameId);
+    ngOnDestroy() {
+        this.routeSubscription.unsubscribe();
+        this.memoryGameService.leave();
     }
 }

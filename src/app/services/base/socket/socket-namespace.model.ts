@@ -18,16 +18,15 @@ export class SocketNamespace {
             : this.observeUsingSocket('connect', this.socket).map(() => this.socket);
     }
 
-    observe<T>(event: string) {
-        return new Observable<T>(observer => {
-            this.connect()
-                .subscribe(socket => socket.on(event, observer.next.bind(observer)));
-        });
+    observe<T>(event: string, errorEvent = `${event}Error`) {
+        return this.connect()
+            .switchMap(socket => this.observeUsingSocket<T>(event, socket, errorEvent));
     }
 
-    observeUsingSocket<T>(event: string, socket: SocketIOClient.Socket) {
+    observeUsingSocket<T>(event: string, socket: SocketIOClient.Socket, errorEvent = `${event}Error`) {
         return new Observable<T>(observer => {
             socket.on(event, observer.next.bind(observer));
+            socket.on(errorEvent, observer.error.bind(observer));
         });
     }
 
