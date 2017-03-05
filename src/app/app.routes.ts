@@ -1,7 +1,13 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { MemoryComponent } from './memory/memory.compont';
-
-export const AppRoutes: Routes = [
-    { path: 'memory', component: MemoryComponent }
+const AppRoutes: Routes = [
+    { path: '', loadChildren: './home/module#HomeModule' },
+    { path: 'memory', loadChildren: './memory/module#MemoryModule' }
 ];
+
+@NgModule({
+    imports: [RouterModule.forRoot(AppRoutes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule { }
