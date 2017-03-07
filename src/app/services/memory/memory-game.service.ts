@@ -11,15 +11,19 @@ import { MemorySocketService } from '../memory/memory-socket.service';
 export class MemoryGameService {
 
     private playerJoinedSubscription: Subscription;
+    private playerLeaveSubscription: Subscription;
 
     constructor(private memorySocketService: MemorySocketService) { }
 
-    initialize(gameId: string) {
-        const game = new Game();
+    initialize(gameId: string, username: string) {
+        const game = new Game(gameId);
 
-        this.memorySocketService.joinGame(gameId);
+        this.memorySocketService.joinGame(gameId, username);
         this.playerJoinedSubscription = this.memorySocketService.onPlayerJoined()
-            .subscribe(player => game.addPlayer(new Player(player['playerId'])));
+            .subscribe((player: Player) => game.addPlayer(new Player(player.username)));
+        this.playerLeaveSubscription = this.memorySocketService.onPlayerLeave()
+            .subscribe((player: Player) => game.removePlayer(player.username));
+
         return this.memorySocketService.onJoinGame()
             .map(gameData => {
                 game.players = gameData.players;
@@ -28,7 +32,9 @@ export class MemoryGameService {
             });
     }
 
-    leave() {
+    leave(gameId: string) {
+        this.playerLeaveSubscription.unsubscribe();
         this.playerJoinedSubscription.unsubscribe();
+        this.memorySocketService.leaveGame(gameId);
     }
 }

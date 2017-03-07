@@ -24,7 +24,7 @@ export class MemoryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSubscription = this.route.params.subscribe((params: { gameId: string }) => {
             const gameId: string = params.gameId;
-            this.memoryGameService.initialize(gameId)
+            this.memoryGameService.initialize(gameId, this.username)
                 .first()
                 .subscribe(game => this.game = game);
         });
@@ -32,6 +32,15 @@ export class MemoryComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.routeSubscription.unsubscribe();
-        this.memoryGameService.leave();
+        this.memoryGameService.leave(this.game.id);
+    }
+
+    private get username() {
+        const sessionName = sessionStorage.getItem('username');
+        const username = sessionName || window.prompt('Please enter your username');
+        if(!sessionName) {
+            sessionStorage.setItem('username', username);
+        }
+        return username;
     }
 }

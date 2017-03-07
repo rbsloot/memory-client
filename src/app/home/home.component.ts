@@ -35,6 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     joinGame(gameId: string) {
-        this.memorySocketService.joinGame(gameId);
+        this.router.navigate(['memory', gameId]);
     }
 }
