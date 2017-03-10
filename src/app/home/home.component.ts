@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     createGame() {
-        this.memorySocketService.newGame({ theme: 'meme' });
+        this.memorySocketService.newGame({ theme: 'test' });
     }
 
     joinGame(gameId: string) {

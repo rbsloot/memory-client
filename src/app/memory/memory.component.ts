@@ -26,7 +26,10 @@ export class MemoryComponent implements OnInit, OnDestroy {
             const gameId: string = params.gameId;
             this.memoryGameService.initialize(gameId, this.username)
                 .first()
-                .subscribe(game => this.game = game);
+                .subscribe(game => {
+                    console.log(game);
+                    this.game = game;
+                });
         });
     }
 
