@@ -26,8 +26,7 @@ export class MemoryGameService {
 
         return this.memorySocketService.onJoinGame()
             .map(gameData => {
-                game.players = gameData.players;
-                game.cards = gameData.cards;
+                game.initialize(gameData);
                 return game;
             });
     }

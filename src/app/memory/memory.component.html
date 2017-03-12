@@ -10,9 +10,14 @@
         </md-list>
     </div>
     <div class="col-md-9">
-        <md-grid-list rowHeight="20rem" cols="4">
+        <div *ngIf="!game.isActive" class="game-actions">
+            <button md-raised-button (click)="onStartClick()">Start</button>
+        </div>
+        <md-grid-list *ngIf="game.isActive" rowHeight="20rem" cols="4">
             <md-grid-tile *ngFor="let card of game.cards">
-                <md-card>{{card.imageUrl}}</md-card>
+                <md-card>
+                    <img md-card-image [alt]="card.imageUrl" [src]="card.imageUrl">
+                </md-card>
             </md-grid-tile>
         </md-grid-list>
     </div>

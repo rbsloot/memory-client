@@ -38,6 +38,10 @@ export class MemoryComponent implements OnInit, OnDestroy {
         this.memoryGameService.leave(this.game.id);
     }
 
+    onStartClick() {
+        console.log('START GAME');
+    }
+
     private get username() {
         const sessionName = sessionStorage.getItem('username');
         const username = sessionName || window.prompt('Please enter your username');
