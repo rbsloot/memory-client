@@ -12,6 +12,7 @@ const PLAYER_JOIN_EVENT = 'newPlayer';
 const LEAVE_EVENT = 'leaveGame';
 const PLAYER_LEAVE_EVENT = 'playerLeave';
 const PLAYER_DISCONNECTED = 'playerDisconnected';
+const START_GAME_EVENT = 'startGame';
 
 @Injectable()
 export class MemorySocketService {
@@ -51,6 +52,14 @@ export class MemorySocketService {
 
     onPlayerLeave() {
         return this.memoryNamespace.observe(PLAYER_LEAVE_EVENT);
+    }
+
+    startGame(gameId: string) {
+        this.memoryNamespace.emit(START_GAME_EVENT, gameId);
+    }
+
+    onStartGame() {
+        return this.memoryNamespace.observe(START_GAME_EVENT);
     }
 
     onPlayerDisconnected() {

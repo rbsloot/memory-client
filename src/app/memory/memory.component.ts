@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { MemoryGameService } from '../services/memory/memory-game.service';
+import { MemorySocketService } from '../services/memory/memory-socket.service';
 
 import { Game } from '../services/memory/game/memory-game.model';
 
@@ -16,14 +17,15 @@ export class MemoryComponent implements OnInit, OnDestroy {
     game: Game;
 
     private routeSubscription: Subscription;
+    private startGameSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute,
-        private memoryGameService: MemoryGameService) { }
+        private memoryGameService: MemoryGameService,
+        private memorySocketService: MemorySocketService) { }
 
     ngOnInit() {
-        this.routeSubscription = this.route.params.subscribe((params: { gameId: string }) => {
-            const gameId: string = params.gameId;
+        this.routeSubscription = this.route.params.subscribe(({ gameId }) => {
             this.memoryGameService.initialize(gameId, this.username)
                 .first()
                 .subscribe(game => {
@@ -31,15 +33,18 @@ export class MemoryComponent implements OnInit, OnDestroy {
                     this.game = game;
                 });
         });
+        this.startGameSubscription = this.memorySocketService.onStartGame()
+            .subscribe(gameState => this.game.start(gameState));
     }
 
     ngOnDestroy() {
         this.routeSubscription.unsubscribe();
+        this.startGameSubscription.unsubscribe();
         this.memoryGameService.leave(this.game.id);
     }
 
     onStartClick() {
-        console.log('START GAME');
+        this.memorySocketService.startGame(this.game.id);
     }
 
     private get username() {

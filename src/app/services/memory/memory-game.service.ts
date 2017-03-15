@@ -22,6 +22,7 @@ export class MemoryGameService {
         this.playerJoinedSubscription = this.memorySocketService.onPlayerJoined()
             .subscribe((player: Player) => game.addPlayer(new Player(player.username)));
         this.playerLeaveSubscription = this.memorySocketService.onPlayerLeave()
+            .merge(this.memorySocketService.onPlayerDisconnected())
             .subscribe((player: Player) => game.removePlayer(player.username));
 
         return this.memorySocketService.onJoinGame()
