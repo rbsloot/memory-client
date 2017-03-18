@@ -11,6 +11,8 @@ import { MemorySocketService } from '../services/memory/memory-socket.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+    gameId = 1;
+
     private createdSubscription: Subscription;
     private playerJoinedSubscription: Subscription;
 
