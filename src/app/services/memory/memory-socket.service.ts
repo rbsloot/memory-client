@@ -62,6 +62,14 @@ export class MemorySocketService {
         return this.memoryNamespace.observe(START_GAME_EVENT);
     }
 
+    selectCard(gameId: string, cardId: number) {
+        // TODO
+    }
+
+    onCardSelected() {
+        // TODO
+    }
+
     onPlayerDisconnected() {
         return this.memoryNamespace.observe(PLAYER_DISCONNECTED);
     }
