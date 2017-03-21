@@ -1,7 +1,6 @@
 <div class="test-buttons">
     <button md-raised-button (click)="createGame()">Create game</button>
-    <button md-raised-button (click)="joinGame(gameId)">Join</button>
-    <a [routerLink]="['memory', gameId]">Go to game</a>
 
     <input type="number" [value]="gameId" (input)="gameId = $event.target.value">
+    <button md-raised-button (click)="joinGame(gameId)">Join</button>
 </div>
