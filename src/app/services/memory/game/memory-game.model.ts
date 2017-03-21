@@ -16,8 +16,7 @@ export class Game {
 
     initialize(gameData: GameData) {
         this.isActive = gameData.isActive;
-        this.players = gameData.players;
-        this.cards = gameData.cards;
+        this.state = gameData;
     }
 
     start(gameState: GameData) {

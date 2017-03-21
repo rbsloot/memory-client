@@ -10,20 +10,17 @@ import { MemorySocketService } from '../memory/memory-socket.service';
 @Injectable()
 export class MemoryGameService {
 
-    private playerJoinedSubscription: Subscription;
-    private playerLeaveSubscription: Subscription;
-
     constructor(private memorySocketService: MemorySocketService) { }
 
-    initialize(gameId: string, username: string) {
+    joinGame(gameId: string, username: string) {
         const game = new Game(gameId);
 
         this.memorySocketService.joinGame(gameId, username);
-        this.playerJoinedSubscription = this.memorySocketService.onPlayerJoined()
-            .subscribe((player: Player) => game.addPlayer(new Player(player.username)));
-        this.playerLeaveSubscription = this.memorySocketService.onPlayerLeave()
-            .merge(this.memorySocketService.onPlayerDisconnected())
-            .subscribe((player: Player) => game.removePlayer(player.username));
+        // this.playerJoinedSubscription = this.memorySocketService.onPlayerJoined()
+        //     .subscribe(player => game.addPlayer(new Player(player.username)));
+        // this.playerLeaveSubscription = this.memorySocketService.onPlayerLeave()
+        //     .merge(this.memorySocketService.onPlayerDisconnected())
+        //     .subscribe(player => game.removePlayer(player.username));
 
         return this.memorySocketService.onJoinGame()
             .map(gameData => {
@@ -33,8 +30,19 @@ export class MemoryGameService {
     }
 
     leave(gameId: string) {
-        this.playerLeaveSubscription.unsubscribe();
-        this.playerJoinedSubscription.unsubscribe();
         this.memorySocketService.leaveGame(gameId);
+    }
+
+    onPlayerJoined() {
+        return this.memorySocketService.onPlayerJoined()
+            .map(player => new Player(player.username));
+    }
+
+    onPlayerExit() {
+        return this.memorySocketService.onPlayerDisconnected()
+            .map(player => ({ type: 'disconnected', player }))
+            .merge(this.memorySocketService.onPlayerLeave()
+                .map(player => ({ type: 'leave', player }))
+            );
     }
 }

@@ -1,5 +1,6 @@
 export class Card {
     isSelected: boolean;
+    isGuessed: boolean;
 
-    constructor(public imageSrc: string) { }
+    constructor(public id: number, public imageSrc: string) { }
 }

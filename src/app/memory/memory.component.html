@@ -14,9 +14,10 @@
             <button md-raised-button (click)="onStartClick()">Start</button>
         </div>
         <md-grid-list *ngIf="game.isActive" rowHeight="20rem" cols="4">
-            <md-grid-tile *ngFor="let card of game.cards">
+            <md-grid-tile *ngFor="let card of game.cards" (click)="onCardClick(card)">
                 <md-card>
-                    <img md-card-image [alt]="card.imageUrl" [src]="card.imageUrl">
+                    <div *ngIf="!card.isGuessed && !card.isSelected">BACK SIDE</div>
+                    <img *ngIf="card.isGuessed || card.isSelected" md-card-image [alt]="card.imageUrl" [src]="card.imageUrl">
                 </md-card>
             </md-grid-tile>
         </md-grid-list>

@@ -4,6 +4,7 @@ import { BaseSocketService } from '../base/socket/base-socket.service';
 import { SocketNamespace } from '../base/socket/socket-namespace.model';
 
 import { Game } from './game/memory-game.model';
+import { Player } from './game/memory-player.model';
 
 const CREATE_EMIT = 'newGame';
 const CREATED_EVENT = 'created';
@@ -43,7 +44,7 @@ export class MemorySocketService {
     }
 
     onPlayerJoined() {
-        return this.memoryNamespace.observe(PLAYER_JOIN_EVENT);
+        return this.memoryNamespace.observe<Player>(PLAYER_JOIN_EVENT);
     }
 
     leaveGame(gameId: string) {
@@ -51,7 +52,7 @@ export class MemorySocketService {
     }
 
     onPlayerLeave() {
-        return this.memoryNamespace.observe(PLAYER_LEAVE_EVENT);
+        return this.memoryNamespace.observe<Player>(PLAYER_LEAVE_EVENT);
     }
 
     startGame(gameId: string) {
@@ -71,6 +72,6 @@ export class MemorySocketService {
     }
 
     onPlayerDisconnected() {
-        return this.memoryNamespace.observe(PLAYER_DISCONNECTED);
+        return this.memoryNamespace.observe<Player>(PLAYER_DISCONNECTED);
     }
 }
